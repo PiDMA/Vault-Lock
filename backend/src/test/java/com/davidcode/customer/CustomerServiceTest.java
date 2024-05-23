@@ -3,6 +3,8 @@ package com.davidcode.customer;
 import com.davidcode.exception.DuplicateResourceException;
 import com.davidcode.exception.RequestValidationException;
 import com.davidcode.exception.ResourceNotFoundException;
+import com.davidcode.s3.S3Buckets;
+import com.davidcode.s3.S3Service;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,9 +12,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
@@ -26,10 +26,18 @@ class CustomerServiceTest {
     private PasswordEncoder passwordEncoder;
     private CustomerService underTest;
     private final CustomerDTOMapper customerDTOMapper = new CustomerDTOMapper();
+    @Mock
+    private S3Service s3Service;
+    private S3Buckets s3Buckets;
 
     @BeforeEach
     void setUp() {
-        underTest = new CustomerService(customerDao, customerDTOMapper, passwordEncoder);
+        underTest = new CustomerService(
+                customerDao,
+                customerDTOMapper,
+                passwordEncoder,
+                s3Service,
+                s3Buckets);
     }
 
     @Test

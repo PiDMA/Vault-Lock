@@ -72,5 +72,4 @@ public class CustomerController {
             @PathVariable("customerID") Integer customerId){
         return customerService.getCustomerProfileImage(customerId);
     }
-
 }

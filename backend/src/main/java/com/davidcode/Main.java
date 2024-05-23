@@ -29,10 +29,11 @@ public class Main {
             S3Service s3Service,
             S3Buckets s3Buckets) {
         return args -> {
-            createRandomCustomers(customerRepository, passwordEncoder);
+            //Create customer
+//            createRandomCustomers(customerRepository, passwordEncoder);
 
-            //add S3Service and S3Buckets in runner parameters to test
-            //testBucketUploadAndDownload(s3Service, s3Buckets);
+//            add S3Service and S3Buckets in runner parameters to test upload and download functionality
+            testBucketUploadAndDownload(s3Service, s3Buckets);
         };
     }
 
@@ -44,10 +45,9 @@ public class Main {
         );
         byte[] obj = s3Service.getObject(
                 "fs-davidscode-users-test",
-                "foo"
+                "foo/bar/bob"
         );
-
-        System.out.println("HOORAY : " + new String(obj));
+        System.out.println("Byte array to  : " + new String(obj));
     }
 
     private static void createRandomCustomers(CustomerRepository customerRepository, PasswordEncoder passwordEncoder) {
